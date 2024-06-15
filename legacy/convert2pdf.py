@@ -1,3 +1,4 @@
+#Legacy code without UI
 from typing import Type
 import win32com.client
 import os

@@ -4,7 +4,7 @@ import customtkinter
 from os import path
 import win32com.client
 import os
-import glob 
+import glob
 
 class App:
     def __init__(self):
@@ -64,26 +64,28 @@ class App:
                 self.excels.append(x)
             self.convert(self.excels,'.xlsx')
     def convert(self, array, extension):
-       for x in array:
+        for x in array:
             in_file = os.path.realpath(x)
-            x = x.replace(extension,'')
-            out_file = x + ".pdf"
-            if(extension == '.docx'):
-                file = win32com.client.gencache.EnsureDispatch('Word.Application')
-                file.Visible = False
-                pdf = file.Documents.Open(in_file)
-                pdf.SaveAs(out_file, FileFormat = 17)
-            elif(extension == '.pptx'):
-                file = win32com.client.gencache.EnsureDispatch('PowerPoint.Application')
-                pdf = file.Presentations.Open(in_file, WithWindow=False)
-                print(out_file)
-                pdf.SaveAs(out_file, 32)
-            elif(extension == '.xlsx'):
-                file = win32com.client.gencache.EnsureDispatch('Excel.Application')
-                file.Visible=False
-                pdf = file.Workbooks.Open(in_file)
-                pdf.ExportAsFixedFormat(win32com.client.constants.xlTypePDF, out_file)
-            pdf.Close()
-            file.Quit()
+            out_file = in_file.replace(extension,'.pdf')
+            try:
+                if(extension == '.docx'):
+                    file = win32com.client.gencache.EnsureDispatch('Word.Application')
+                    file.Visible = False
+                    pdf = file.Documents.Open(in_file)
+                    pdf.SaveAs(out_file, FileFormat = 17)
+                elif(extension == '.pptx'):
+                    file = win32com.client.gencache.EnsureDispatch('PowerPoint.Application')
+                    file.Visible = False
+                    pdf = file.Presentations.Open(in_file)
+                    pdf.SaveAs(out_file, FileFormat = 32)
+                elif(extension == '.xlsx'):
+                    file = win32com.client.gencache.EnsureDispatch('Excel.Application')
+                    file.Visible = False
+                    pdf = file.Workbooks.Open(in_file)
+                    pdf.ExportAsFixedFormat(win32com.client.constants.xlTypePDF, out_file)
+                pdf.Close()
+                file.Quit()
+            except Exception as e:
+                print(e)
 
 App()
