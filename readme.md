@@ -12,4 +12,4 @@ This will install all the necessary dependencies and then you can run the applic
 
 # Legacy tool
 
-Theres a legacy folder with a a script that doesn't include UI. All the files will be converted to PDF in the same folder if you run that script.
+There's a legacy folder with a a script that doesn't include UI. All the files will be converted to PDF in the same folder if you run that script.
